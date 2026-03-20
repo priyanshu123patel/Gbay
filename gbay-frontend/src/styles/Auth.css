@@ -1,0 +1,501 @@
+.auth-body {
+  /* background-color: #101520; */
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  margin-top: 25px;
+}
+
+/* Main Container */
+.container {
+  background-color: #101520;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22),
+    0 0 15px 10px gray;
+  ;
+  /* Your glow */
+  position: relative;
+  overflow: hidden;
+  width: 900px;
+  max-width: 100%;
+  min-height: 700px;
+  margin-top: 40px;
+}
+
+/* Form Containers */
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+/* Sign Up Form (Initially Hidden behind overlay) */
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Login Form (Initially Visible) */
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+/* The Moving Overlay (The Colored Panel) */
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.overlay {
+  background: linear-gradient(to top, #d1fae5 0%, #FFFFFF);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #064e3b;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Panels inside the overlay (Welcome Text) */
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+/* --- ANIMATION ACTIVE STATES --- */
+
+/* Move Sign Up to the right */
+.container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+}
+
+/* Move Sign In out of view */
+.container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+}
+
+/* Move Overlay to the Left */
+.container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+/* Move the gradient inside the overlay to keep it looking static */
+.container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+/* Text Animations inside Overlay */
+.container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+/* --- STYLING ELEMENTS --- */
+form {
+  background-color: rgba(25, 25, 25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+.title {
+  color: #fff;
+  font-size: 37px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.input-field {
+  position: relative;
+  border-bottom: 2px solid #ccc;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.input-field input:focus~label,
+.input-field input:valid~label {
+  top: -10px;
+  font-size: 12px;
+  color: #2ba8b6;
+}
+
+button.submit {
+  width: 100%;
+  height: 45px;
+  background: linear-gradient(to bottom, #2ba8b6, #101520);
+  border-radius: 25px;
+  border: 1px solid #fff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+button.ghost {
+  background: linear-gradient(to bottom, #2ba8b6, #19636c);
+  border-color: #FFFFFF;
+  border-radius: 25px;
+  border: 1px solid #fff;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 12px 45px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.welcome-text {
+  display: flex;
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+
+.r {
+  margin-right: 140px;
+}
+
+.l {
+  margin-left: 140px;
+}
+
+.invalid {
+  color: #ff4d4d;
+  margin-bottom: 15px;
+}
+
+.forgetPass {
+  color: #ccc;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #ccc;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+  margin: 0 12px;
+  font-size: 14px;
+}
+
+.google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgb(35, 35, 35);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.google-btn:hover {
+  background: rgb(50, 50, 50);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.google-btn img {
+  width: 18px;
+}
+
+/* responsive design */
+
+@media (max-width: 900px) {
+  /* @media (max-height:700px) { */
+
+  form {
+    padding: 80px 25px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  button.submit {
+    width: 100%;
+  }
+
+  .container {
+    margin: -50px 0;
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .overlay-container {
+    display: none;
+  }
+
+  .form-container {
+    width: 100%;
+    position: relative;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .sign-in-container,
+  .sign-up-container {
+    width: 100%;
+  }
+
+  .container.right-panel-active .sign-in-container {
+    display: none;
+  }
+
+  .container.right-panel-active .sign-up-container {
+    display: block;
+  }
+
+  /* } */
+}
+
+/* Small devices */
+@media (max-width: 480px) {
+  form {
+    padding: 80px 25px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  button.submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Disable overlay completely */
+  .overlay-container {
+    display: none;
+  }
+
+  /* Base state */
+  .sign-in-container,
+  .sign-up-container {
+    position: relative;
+    width: 100%;
+    display: none;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* show login */
+  .sign-in-container {
+    display: block;
+  }
+
+  /* When signup is active */
+  .container.right-panel-active .sign-in-container {
+    display: none;
+  }
+
+  .container.right-panel-active .sign-up-container {
+    display: block;
+  }
+}
+
+/* Mobile toggle link */
+.mobile-toggle {
+  display: none;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.mobile-toggle span {
+  color: #2ba8b6;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Show toggle ONLY on mobile */
+@media (max-width: 900px) {
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+.gbay-logo-wrapper {
+  position: absolute;
+  top: 1%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.gbay-logo {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  /* gap: 4px; */
+  font-weight: 700;
+}
+
+.g-wrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+/* Earth inside G */
+.earth-inside {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  /* animation: spinEarth 6s linear infinite; */
+  pointer-events: none;
+}
+
+/* bay colors */
+.g {
+  font-size: 48px;
+  color: #ea4335;
+}
+
+.b {
+  font-size: 48px;
+  color: green;
+}
+
+.a {
+  font-size: 48px;
+  color: #fbbc05;
+}
+
+.y {
+  font-size: 48px;
+  color: #4285f4;
+}
+
+/* Rotation */
+@keyframes spinEarth {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .g-letter {
+    font-size: 48px;
+  }
+
+  .earth-inside {
+    width: 26px;
+    height: 26px;
+  }
+
+  .b,
+  .a,
+  .y {
+    font-size: 36px;
+  }
+}
